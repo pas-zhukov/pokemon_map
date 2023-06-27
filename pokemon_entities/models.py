@@ -9,7 +9,6 @@ class Pokemon(models.Model):
     description = models.TextField(blank=True)
 
     previous_evolution = models.ForeignKey('self', related_name="previous_evolutions", null=True, blank=True, on_delete=models.SET_NULL)
-    next_evolution = models.ForeignKey('self', related_name="next_evolutions", null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title
@@ -25,12 +24,15 @@ class Pokemon(models.Model):
             "entities": None,
 
         }
-        if self.next_evolution:
+        try:
+            next_evolution = Pokemon.objects.get(previous_evolution=self)
             pokemon_data["next_evolution"] = {
-                "title_ru": self.next_evolution.title,
-                "pokemon_id": self.next_evolution.id,
-                "img_url": self.next_evolution.image.url
+                "title_ru": next_evolution.title,
+                "pokemon_id": next_evolution.id,
+                "img_url": next_evolution.image.url
             }
+        except Pokemon.DoesNotExist:
+            pokemon_data["next_evolution"] = dict()
         if self.previous_evolution:
             pokemon_data["previous_evolution"] = {
                 "title_ru": self.previous_evolution.title,
