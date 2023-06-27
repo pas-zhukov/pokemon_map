@@ -4,12 +4,20 @@ from django.db import models  # noqa F401
 class Pokemon(models.Model):
     """Вид покемона"""
     title = models.TextField(max_length=20, verbose_name="Название вида")
-    title_en = models.TextField(blank=True, verbose_name="Название вида (англ)")
-    title_jp = models.TextField(blank=True, verbose_name="Название вида (яп)")
-    image = models.ImageField(null=True, blank=True, verbose_name="Изображение покемона")
-    description = models.TextField(blank=True, verbose_name="Описание вида")
+    title_en = models.TextField(verbose_name="Название вида (англ)",
+                                null=True, blank=True)
+    title_jp = models.TextField(verbose_name="Название вида (яп)",
+                                null=True, blank=True)
+    image = models.ImageField(verbose_name="Изображение покемона",
+                              null=True)
+    description = models.TextField(verbose_name="Описание вида",
+                                   null=True, blank=True)
 
-    previous_evolution = models.ForeignKey('self', related_name="previous_evolutions", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Из кого покемон эволюционировал")
+    previous_evolution = models.ForeignKey('self',
+                                           related_name="previous_evolutions",
+                                           verbose_name="Из кого покемон эволюционировал",
+                                           null=True, blank=True,
+                                           on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.title
@@ -46,17 +54,29 @@ class Pokemon(models.Model):
 
 class PokemonEntity(models.Model):
     """Покемон"""
-    pokemon = models.ForeignKey(Pokemon, on_delete=models.CASCADE, verbose_name="вид покемона")
+    pokemon = models.ForeignKey(Pokemon,
+                                verbose_name="вид покемона",
+                                on_delete=models.CASCADE)
     latitude = models.FloatField(verbose_name="Широта")
     longitude = models.FloatField(verbose_name="Долгота")
-    appeared_at = models.DateTimeField(null=True, blank=True, verbose_name="Дата и время появления покемона")
-    disappeared_at = models.DateTimeField(null=True, blank=True, verbose_name="Дата и время исчезнования покемона")
+    appeared_at = models.DateTimeField(verbose_name="Дата и время появления покемона")
+    disappeared_at = models.DateTimeField(verbose_name="Дата и время исчезновения покемона")
 
-    level = models.IntegerField(default=1, verbose_name="Уровень покемона")
-    health = models.IntegerField(default=100, verbose_name="Здоровье")
-    damage = models.IntegerField(default=18, verbose_name="Урон")
-    armour = models.IntegerField(default=0, verbose_name="Защита")
-    stamina = models.IntegerField(default=20, verbose_name="Выносливость")
+    level = models.IntegerField(default=1,
+                                verbose_name="Уровень покемона",
+                                null=True, blank=True)
+    health = models.IntegerField(default=100,
+                                 verbose_name="Здоровье",
+                                 null=True, blank=True)
+    damage = models.IntegerField(default=18,
+                                 verbose_name="Урон",
+                                 null=True, blank=True)
+    armour = models.IntegerField(default=0,
+                                 verbose_name="Защита",
+                                 null=True, blank=True)
+    stamina = models.IntegerField(default=20,
+                                  verbose_name="Выносливость",
+                                  null=True, blank=True)
 
     def __str__(self):
         return f"{self.pokemon.title} {self.level} уровня"
