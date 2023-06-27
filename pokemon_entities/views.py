@@ -1,8 +1,5 @@
 import folium
-import json
 from .models import PokemonEntity, Pokemon
-from django.http import HttpResponseNotFound
-# from django.http import HttpRequest as request
 from django.shortcuts import render
 from django.utils.timezone import localtime, now, get_default_timezone
 
