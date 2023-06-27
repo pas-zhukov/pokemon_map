@@ -7,3 +7,10 @@ class Pockemon(models.Model):
 
     def __str__(self):
         return self.title
+
+class PockemonEntity(models.Model):
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+
+    def __str__(self):
+        return round(self.latitude, 4), round(self.logitude, 4)
