@@ -15,5 +15,11 @@ class PockemonEntity(models.Model):
     appeared_at = models.DateTimeField(null=True, blank=True)
     disappeared_at = models.DateTimeField(null=True, blank=True)
 
+    level = models.IntegerField(default=1)
+    health = models.IntegerField(default=100)
+    damage = models.IntegerField(default=18)
+    armour = models.IntegerField(default=0)
+    stamina = models.IntegerField(default=20)
+
     def __str__(self):
         return str(self.__dict__)
