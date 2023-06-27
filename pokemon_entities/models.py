@@ -22,4 +22,4 @@ class PockemonEntity(models.Model):
     stamina = models.IntegerField(default=20)
 
     def __str__(self):
-        return str(self.__dict__)
+        return self.pockemon.title + " " + str(self.level) + " уровня"
