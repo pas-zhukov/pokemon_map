@@ -115,6 +115,8 @@ USE_I18N = True
 
 USE_L10N = True
 
+TIME_ZONE = 'Europe/Moscow'
+
 USE_TZ = True
 
 
