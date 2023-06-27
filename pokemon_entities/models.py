@@ -1,4 +1,5 @@
 from django.db import models  # noqa F401
+from django.http import HttpRequest as request
 
 # your models here
 class Pockemon(models.Model):
@@ -7,6 +8,20 @@ class Pockemon(models.Model):
 
     def __str__(self):
         return self.title
+
+    def todict(self):
+        pocky = {
+        "pokemon_id": self.id,
+        "title_ru": self.title,
+        "title_en": "",
+        "title_jp": "",
+        "description": "",
+        "img_url": self.image.url,
+        "entities": None,
+        "next_evolution": None
+}
+        return pocky
+
 
 class PockemonEntity(models.Model):
     pockemon = models.ForeignKey(Pockemon, on_delete=models.CASCADE)
