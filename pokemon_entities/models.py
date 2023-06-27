@@ -6,6 +6,8 @@ class Pockemon(models.Model):
     title = models.TextField(max_length=200)
     image = models.ImageField(null=True, blank=True)
     description = models.TextField(blank=True)
+    title_en = models.TextField(blank=True)
+    title_jp = models.TextField(blank=True)
 
     def __str__(self):
         return self.title
@@ -14,8 +16,8 @@ class Pockemon(models.Model):
         pocky = {
         "pokemon_id": self.id,
         "title_ru": self.title,
-        "title_en": "",
-        "title_jp": "",
+        "title_en": self.title_en,
+        "title_jp": self.title_jp,
         "description": self.description,
         "img_url": self.image.url,
         "entities": None,
