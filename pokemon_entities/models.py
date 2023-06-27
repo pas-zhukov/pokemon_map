@@ -9,8 +9,9 @@ class Pockemon(models.Model):
         return self.title
 
 class PockemonEntity(models.Model):
+    pockemon = models.ForeignKey(Pockemon, on_delete=models.CASCADE)
     latitude = models.FloatField()
     longitude = models.FloatField()
 
     def __str__(self):
-        return round(self.latitude, 4), round(self.logitude, 4)
+        return str(self.__dict__)
