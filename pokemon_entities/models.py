@@ -23,7 +23,7 @@ class Pokemon(models.Model):
         return self.title
 
     def to_dict(self):
-        pokemon_data = {
+        pokemon_stats = {
             "pokemon_id": self.id,
             "title_ru": self.title,
             "title_en": self.title_en,
@@ -35,21 +35,21 @@ class Pokemon(models.Model):
         }
         try:
             next_evolution = Pokemon.objects.get(previous_evolution=self)
-            pokemon_data["next_evolution"] = {
+            pokemon_stats["next_evolution"] = {
                 "title_ru": next_evolution.title,
                 "pokemon_id": next_evolution.id,
                 "img_url": next_evolution.image.url
             }
         except Pokemon.DoesNotExist:
-            pokemon_data["next_evolution"] = dict()
+            pokemon_stats["next_evolution"] = dict()
         if self.previous_evolution:
-            pokemon_data["previous_evolution"] = {
+            pokemon_stats["previous_evolution"] = {
                 "title_ru": self.previous_evolution.title,
                 "pokemon_id": self.previous_evolution.id,
                 "img_url": self.previous_evolution.image.url
             }
 
-        return pokemon_data
+        return pokemon_stats
 
 
 class PokemonEntity(models.Model):
