@@ -33,15 +33,14 @@ class Pokemon(models.Model):
             "entities": None,
 
         }
-        try:
-            next_evolution = Pokemon.objects.get(previous_evolution=self)
+
+        next_evolution = self.next_evolutions.first()
+        if next_evolution:
             pokemon_stats["next_evolution"] = {
                 "title_ru": next_evolution.title,
                 "pokemon_id": next_evolution.id,
                 "img_url": next_evolution.image.url
             }
-        except Pokemon.DoesNotExist:
-            pokemon_stats["next_evolution"] = dict()
         if self.previous_evolution:
             pokemon_stats["previous_evolution"] = {
                 "title_ru": self.previous_evolution.title,
