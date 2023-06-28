@@ -1,6 +1,6 @@
 import folium
 from .models import PokemonEntity, Pokemon
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.utils.timezone import localtime, now, get_default_timezone
 
 MOSCOW_CENTER = [55.751244, 37.618423]
@@ -54,7 +54,7 @@ def show_all_pokemons(request):
 
 
 def show_pokemon(request, pokemon_id):
-    requested_pokemon = Pokemon.objects.get(id=pokemon_id)
+    requested_pokemon = get_object_or_404(Pokemon, id=pokemon_id)
     folium_map = folium.Map(location=MOSCOW_CENTER, zoom_start=12)
     entities = PokemonEntity.objects.filter(pokemon=requested_pokemon)
     for pokemon_entity in entities:
